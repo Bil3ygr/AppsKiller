@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="icon">
+        <file alias="killer.png">killer.png</file>
+        <file alias="play.png">play.png</file>
+        <file alias="stop.png">stop.png</file>
+        <file alias="add.png">add.png</file>
+        <file alias="del.png">del.png</file>
+    </qresource>
+</RCC>

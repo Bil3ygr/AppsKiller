@@ -4,26 +4,10 @@ import sys
 
 from PyQt5 import QtCore, QtWidgets, QtGui
 
-
-class MainWindow(QtWidgets.QMainWindow):
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-
-        self.quitAction = QtCore.QAction(
-            "&Quit", self, triggered=QtWidgets.QApplication.instance().quit)
-
-        self.trayIconMenu = QtWidgets.QMenu(self)
-        self.trayIconMenu.addAction(self.quitAction)
-
-        icon = QtGui.QIcon('res/icons8-close-sign-100.ico')
-
-        self.trayIcon = QtWidgets.QSystemTrayIcon(self)
-        self.trayIcon.setContextMenu(self.trayIconMenu)
-        self.trayIcon.setIcon(icon)
-        self.trayIcon.show()
-
-        self.setWindowIcon(icon)
+import common
+import resources_rc
+from mainwindow import MainWindow
+from settings import SettingsDialog
 
 
 def main():
@@ -31,8 +15,13 @@ def main():
 
     QtWidgets.QApplication.setQuitOnLastWindowClosed(False)
 
-    mainwindow = QtWidgets.QMainWindow()
-    mainwindow.show()
+    mainwindow = MainWindow()
+
+    common.connectSignal(mainwindow)
+    if common.getRunningOnStart():
+        common.run()
+    else:
+        mainwindow.refreshTrayMenu()
 
     return app.exec_()
 
